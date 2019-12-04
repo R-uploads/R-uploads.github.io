@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Moving Objects (Dawn)</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- Facebook meta -->
+    <meta property="og:type" content="music.song" />
+    <meta property="og:title" content="Moving Objects (Dawn)" />
+    <meta property="og:image" content="https://r-uploads.github.io/movingobjects/dawn/dawncover.jpg" />
+            <meta property="og:image:width" content="640">
+        <meta property="og:image:height" content="640">
+
+    <!-- Twitter meta -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Moving Objects (Dawn)" />
+    <meta name="twitter:image" content="https://r-uploads.github.io/movingobjects/dawn/dawncover.jpg" />
+
+    <style>
+        /* Font Awesome */
+        @font-face {
+            font-family: 'FontAwesome';
+            src: url('/fonts/fontawesome-webfont.eot?v=4.0.3');
+            src: url('/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'),
+            url('/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'),
+            url('/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'),
+            url('/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+        .fa {
+            display: inline-block;
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .fa-download:before {
+            content: "\f019";
+        }
+        .fa-facebook:before {
+            content: "\f09a";
+        }
+        .fa-twitter:before {
+            content: "\f099";
+        }
+        .fa-google-plus:before {
+            content: "\f0d5";
+        }
+        .fa-linkedin:before {
+            content: "\f0e1";
+        }
+        .fa-instagram:before {
+            content: "\f16d";
+        }
+        .fa-dribbble:before {
+            content: "\f17d";
+        }
+        .fa-skype:before {
+            content: "\f17e";
+        }
+        .fa-tumblr:before {
+            content: "\f173";
+        }
+        .fa-youtube:before {
+            content: "\f167";
+        }
+        .fa-youtube-play:before {
+            content: "\f16a";
+        }
+        .fa-medium:before {
+            content: "\f23a";
+        }
+        .fa-play:before {
+            content: "\f04b";
+        }
+        .fa-mixcloud:before {
+            content: "\f289";
+        }
+        .fa-soundcloud:before {
+            content: "\f1be";
+        }
+        .fa-snapchat:before {
+            content: "\f2ab";
+        }
+        .fa-facebook-official:before {
+            content: "\f230";
+        }
+        /* /Font Awesome */
+        @font-face {
+            font-family: 'Montserrat-Light';
+            src: url('/fonts/Montserrat-Light.eot');
+            src: url('/fonts/Montserrat-Light.eot?#iefix') format('embedded-opentype'),
+            url('/fonts/Montserrat-Light.woff') format('woff'),
+            url('/fonts/Montserrat-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
+        }
+        html, body {
+            font-family: 'Montserrat-Light', sans-serif;
+            height: 100%;
+        }
+        #wrapper {
+            min-height: 100%;
+            position: relative;
+        }
+        #main {
+            position: relative;
+            padding-bottom:210px;
+        }
+
+        #artwork-bg {
+            position: fixed;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            background-color: #000;
+            -o-transform: translate3d(0, 0, 0);
+            -ms-transform: translate3d(0, 0, 0);
+            -moz-transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+        #artwork-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            filter: blur(15px) brightness(0.75);
+            -webkit-filter: blur(15px) brightness(0.75);
+            -moz-filter: blur(15px) brightness(0.75);
+            -o-filter: blur(15px) brightness(0.75);
+            -ms-filter: blur(15px);
+        }
+        img {
+            width:100%;
+            height:100%;
+        }
+        body.preview {
+            padding-bottom: 55px;
+        }
+        * {
+            padding:0;
+            margin:0;
+        }
+        .hidden {
+            display: none;
+        }
+        .service:nth-child(1n+2) {
+            padding: 2rem 0;
+
+        }
+        .services .service {
+            width: 90%;
+            margin: 0 auto;
+            border-bottom: 1px solid #dedede;
+            padding: 1rem 0;
+        }
+        .services .service a {
+            width: 100%;
+            display: block;
+            overflow: hidden;
+            height: 100%;
+        }
+        .services .service .service-link img.png-fix
+        {
+            height: auto;
+            max-height: 100%;
+            align-self: center;
+        }
+        .services .service .service-link {
+            text-decoration: none;
+        }
+        .services .service a:hover .link .button {
+            color: #212121;
+            border-color: #212121;
+        }
+        .services .service .image-container, .services .service .link {
+            display: inline-flex;
+            float: left;
+            width: 50%;
+        }
+        .services .service img {
+            height:100%;
+            max-height:100%;
+            max-width:65%;
+        }
+        .services .service .link {
+            width: 50%;
+            display: flex;
+            align-items:center;
+            justify-content: flex-end;
+        }
+        .services .service .link .button {
+            display: inline-block;
+            color: #9E9E9E;
+            border-radius: 2px;
+            padding: 0.5rem 0.8rem;
+            font-size:1.1rem;
+            font-family:'Montserrat', sans-serif;
+            border: 1px solid #9E9E9E;
+        }
+        .services .service .link .button i {
+            margin-right: 0.5rem;
+        }
+        .services .service:first-child {
+            padding-top:0;
+        }
+        .services .service:last-child {
+            border-bottom: 0;
+        }
+        .social-links-container {
+            background: #212121;
+            padding: 0.75rem 0;
+            text-align: center;
+            font-size:0.8rem;
+        }
+        .has-website.social-links-container ul {
+            margin: 0 auto 0.5rem;
+        }
+        .social-links-container ul li {
+            display: inline-block;
+            margin: 0 0.5rem;
+            font-size:2rem;
+        }
+        .social-links-container a {
+            color: #757575;
+            text-decoration: none;
+        }
+        .social-links-container a:hover {
+            color: #FFF;
+        }
+        footer {
+            position: absolute;
+            background-color: #EEEEEE;
+            color: #9E9E9E;
+            width: 100%;
+            height: 210px;
+            bottom: 0;
+            left: 0;
+            margin-bottom: -100px;
+        }
+        footer .container {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.8rem;
+        }
+        footer .copyright {
+            margin-top: 1rem;
+            font-size: 0.7rem;
+        }
+        footer p a {
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+        footer p {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        footer .container a {
+            color: #212121;
+        }
+        .preview-top-bar {
+            background: rgba(0, 0, 0, 0.8);
+            color: #FFFFFF;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+            width: 100%;
+            padding:0.5rem 0;
+            font-size:0.9rem;
+            font-family:'Montserrat', sans-serif;
+        }
+        .preview-top-bar .text {
+            width: 100%;
+            float: left;
+            text-align: center;
+        }
+        .preview-top-bar i {
+            position: absolute;
+            right: 0.8rem;
+            top: 0.3rem;
+        }
+        .site-logo {
+            height: 45px;
+            margin: 1rem;
+            width: auto;
+        }
+            .meta-wrapper {
+        max-width: 1024px;
+        margin: 0 auto;
+        background: #FFFFFF;
+        overflow: hidden;
+        padding-bottom: 2rem;
+    }
+    .meta-wrapper.single {
+        max-width: 500px;
+        padding-bottom: 0;
+    }
+    .link-meta-container {
+        position: relative;
+    }
+    .artist-data {
+        width: 100%;
+        background: #000000;
+    }
+    .artist-data .container {
+        margin:0 auto;
+        padding: 2rem 0.5rem;
+        color: #FFFFFF;
+        overflow: hidden;
+    }
+    .artist-data .container div {
+        display: inline-block;
+    }
+    .artist-data .container .image {
+        width: 30%;
+        text-align: center;
+    }
+    .artist-data .container .details {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .artist-data .artist-track {
+        vertical-align: top;
+        margin-left: 10px;
+    }
+    .artist-data .artist-track.no-profile-img {
+        margin-left: 0;
+    }
+    .artist-data .artist-track.no-profile-img span {
+        text-align: center;
+    }
+    .artist-data .image-container {
+        vertical-align: middle;
+    }
+    .service .image-container {
+        text-align: center;
+    }
+    .service a > div {
+        height: 75px;
+    }
+    .artist-data .container .details .track {
+        font-size: 1.8rem;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .artist-data .container .details .artist {
+        font-size: 1.4rem;
+    }
+    .artist-data .container span {
+        display: block;
+        text-align: left;
+    }
+    .artist-container img {
+        float: left;
+    }
+    .link-image {
+        margin: 0 auto;
+        display: block;
+        max-width: 500px;
+        max-height: 640px;
+    }
+    .link-image img {
+        margin:0 auto;
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        height: auto;
+        width: auto;
+    }
+    html, body {
+        margin: 0;
+        padding: 0;
+        
+    }
+    .link-container {
+        width: 100%;
+    }
+    #profile-image {
+        border-radius: 50%;
+        vertical-align: top;
+        width: 75px;
+        height: 75px;
+    }
+    h1,h2,h3,h4,h5,h6 {
+        font-weight: normal;
+    }
+    .about, .listen-heading {
+        display: none;
+    }
+    @media only screen and (max-width: 500px) {
+        #main {
+            padding-bottom: 110px;
+        }
+    }
+    @media only screen and (max-width: 993px) {
+        .meta-wrapper {
+            max-width: 500px;
+        }
+    }
+    @media only screen and (min-width : 993px) {
+        .about, .listen-heading {
+            display: block;
+        }
+        .single .listen-heading {
+            display: none;
+        }
+        .inner {
+            padding:0 4rem;
+        }
+        .meta-wrapper.single .services {
+            width: 100%;
+        }
+
+        .heading {
+            margin-bottom: 1rem;
+        }
+        .services .service {
+            width: 100%;
+        }
+        .about, .services {
+            width: 50%;
+            float: left;
+        }
+        .services.col.single {
+            float: none;
+            margin: 0 auto;
+            padding-bottom: 0;
+                    }
+        .about .description {
+            font-size: 1rem;
+            color: #9E9E9E;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+    }
+    .divider {
+        margin-bottom: 4rem;
+    }
+    .single .divider {
+        margin-bottom: 0;
+    }
+    iframe {
+        display: block;
+    }
+
+    </style>
+    
+    </head>
+<body class="">
+
+    
+<div id="wrapper">
+
+    <div id="artwork-bg">
+        <img src="https://r-uploads.github.io/movingobjects/dawn/dawncover.jpg" alt="Link Background Artwork">
+    </div>
+    <div id="main">
+        
+        
+            <div class="link-image">
+            <img src="https://r-uploads.github.io/movingobjects/dawn/dawncover.jpg" alt="Moving Objects (Dawn)">
+        </div>
+        <div class="meta-wrapper single">
+        <div class="divider">
+
+        <div class="link-meta-container">
+            <div class="artist-data">
+                <div class="container">
+                    <div class="details">
+                                                    <div class="artist-track no-profile-img">
+                                                                                    <span class="track">Dawn</span>
+                                                        <span class="artist">Moving Objects</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+                </div>
+
+                                                <div class="services col single">
+                <div class="inner">
+                    <h2 class="listen-heading heading">Listen</h2>
+                                            <div class="service">
+                            <a class="service-link" href="https://open.spotify.com/album/5BvDVjPtv8gu8ItjBp10eK" rel="noreferrer noopener"
+                               data-uri="spotify:album:5BvDVjPtv8gu8ItjBp10eK">
+                                <div class="image-container">
+                                    <img class="" src="https://r-uploads.github.io/movingobjects/logos/spotify.svg" alt="Spotify Icon">
+                                </div>
+                                <div class="link">
+                                    <div class="button">
+                                                                                    <i class="fa fa-play"></i>Play
+                                                                            </div>
+                                </div>
+                            </a>
+                        </div>
+                                            <div class="service">
+                            <a class="service-link" href="https://music.amazon.com/albums/B081VYZSGP?do=play" rel="noreferrer noopener"
+                               >
+                                <div class="image-container">
+                                    <img class="" src="https://r-uploads.github.io/movingobjects/logos/amazon-music.svg" alt="Amazon Icon">
+                                </div>
+                                <div class="link">
+                                    <div class="button">
+                                                                                    <i class="fa fa-play"></i>Play
+                                                                            </div>
+                                </div>
+                            </a>
+                        </div>
+                                            <div class="service">
+                            <a class="service-link" href="https://music.apple.com/gb/album/dawn-single/1488985867?uo=4&amp;app=music" rel="noreferrer noopener"
+                               >
+                                <div class="image-container">
+                                    <img class="" src="https://r-uploads.github.io/movingobjects/logos/apple-music.svg" alt="Apple Music Icon">
+                                </div>
+                                <div class="link">
+                                    <div class="button">
+                                                                                    <i class="fa fa-play"></i>Play
+                                                                            </div>
+                                </div>
+                            </a>
+                        </div>
+                                            <div class="service">
+                            <a class="service-link" href="https://play.google.com/music/m/B5qar6r67zso4n5tez3cps2lfpm" rel="noreferrer noopener"
+                               >
+                                <div class="image-container">
+                                    <img class="" src="https://r-uploads.github.io/movingobjects/logos/google-play-music.svg" alt="Google Play Music Icon">
+                                </div>
+                                <div class="link">
+                                    <div class="button">
+                                                                                    <i class="fa fa-play"></i>Play
+                                                                            </div>
+                                </div>
+                            </a>
+                        </div>
+                                            <div class="service">
+                            <a class="service-link" href="https://www.deezer.com/us/album/120123652" rel="noreferrer noopener"
+                               >
+                                <div class="image-container">
+                                    <img class="" src="https://r-uploads.github.io/movingobjects/logos/deezer-logo-update.svg" alt="Deezer Icon">
+                                </div>
+                                <div class="link">
+                                    <div class="button">
+                                                                                    <i class="fa fa-play"></i>Play
+                                                                            </div>
+                                </div>
+                            </a>
+                        </div>
+                                            <div class="service">
+                            <a class="service-link" href="https://tidal.com/browse/album/123314069" rel="noreferrer noopener"
+                               >
+                                <div class="image-container">
+                                    <img class="" src="https://r-uploads.github.io/movingobjects/logos/tidal.svg" alt="Tidal Icon">
+                                </div>
+                                <div class="link">
+                                    <div class="button">
+                                                                                    <i class="fa fa-play"></i>Play
+                                                                            </div>
+                                </div>
+                            </a>
+                        </div>
+                                    </div>
+            </div>
+        
+    </div>
+    </div>
+
+    
+</div>
+
+
+</body>
+</html>
